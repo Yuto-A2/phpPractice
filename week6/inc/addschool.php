@@ -1,0 +1,19 @@
+<?php
+print_r($_POST);
+
+$schoolName = $_POST['schoolName'];
+$schoolLevel = $_POST['schoolLevel'];
+$phone = $_POST['phone'];
+$email = $_POST['email'];
+
+require('../reusable/com.php');
+
+$query = "INSERT INTO schools (`School Name`, `School Level`, `Phone`, `Email`) VALUES ('$schoolName', '$schoolLevel', '$phone', '$email')";
+
+$school = mysqli_query($connect, $query);
+
+if($school){
+    header ('Location: ../index.php');
+}else{
+    echo "Failed:" . mysqli_error($connect);
+}
