@@ -1,19 +1,29 @@
 <?php
-print_r($_POST);
+  include('functions.php');
 
-$schoolName = $_POST['schoolName'];
-$schoolLevel = $_POST['schoolLevel'];
-$phone = $_POST['phone'];
-$email = $_POST['email'];
+  $schoolName = $_POST['schoolName'];
+  $schoolLevel = $_POST['schoolLevel'];
+  $phone = $_POST['phone'];
+  $email = $_POST['email'];
 
-require('../reusable/com.php');
+  require('../reusable/com.php');
 
-$query = "INSERT INTO schools (`School Name`, `School Level`, `Phone`, `Email`) VALUES ('$schoolName', '$schoolLevel', '$phone', '$email')";
+  $query = "INSERT INTO schools (
+              `School Name`, 
+              `School Level`, 
+              `Phone`, 
+              `Email`) 
+            VALUES (
+              '" . mysqli_real_escape_string($connect, $schoolName) . "',
+              '" . mysqli_real_escape_string($connect, $schoolLevel) . "',
+              '$phone', 
+              '$email')";
 
-$school = mysqli_query($connect, $query);
+  $school = mysqli_query($connect, $query);
 
-if($school){
-    header ('Location: ../index.php');
-}else{
-    echo "Failed:" . mysqli_error($connect);
-}
+  if($school){
+    set_message('School added successfully!', 'success');
+    header('Location: ../index.php');
+  }else{
+    echo "Failed: " . mysqli_error($connect);
+  }

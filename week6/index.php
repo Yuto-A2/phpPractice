@@ -1,3 +1,8 @@
+<!-- localhost/HTTP5225/week6 -->
+<!-- https://open.toronto.ca/catalogue/ -->
+<!-- https://www.kaggle.com/ -->
+<!-- https://open.toronto.ca/dataset/short-term-rentals-registration/ -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,28 +12,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <!-- Navigation goes here -->
-     <?php
-     include('reusable/nav.php');
-     ?>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Ontario Public Schools</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="add.php">Add A School</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- Navigation goes here -->
+  <?php include('reusable/nav.php'); ?>
+
   <div class="container-fluid">
     <div class="container">
       <div class="row">
@@ -40,16 +26,19 @@
   </div>
   
   <?php 
-     require('reusable/com.php');
+      include('inc/functions.php');
+      require('reusable/com.php'); 
       $query = 'SELECT * FROM schools';
       $schools = mysqli_query($connect, $query);
-      // echo '<pre>';
-      // echo print_r($students);
-      // echo '</pre>';
   ?>
 
   <div class="container-fluid">
     <div class="container">
+      <div class="row">
+        <div class="col">
+          <?php get_message(); ?>
+        </div>
+      </div>
       <div class="row">
         <?php
           foreach($schools as $school){
@@ -60,6 +49,22 @@
                         <p class="card-text">' . $school['School Level'] . '</p>
                         <span class="badge bg-secondary">' . $school['Phone'] . '</span>
                         <span class="badge bg-info">' . $school['Email'] . '</span>
+                      </div>
+                      <div class="card-footer">
+                        <div class="row">
+                          <div class="col">
+                            <form action="" method="GET">
+                              <input type="hidden" name="id" value="' . $school['id'] . '">
+                              <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                            </form>
+                          </div>
+                          <div class="col">
+                              <form action="inc/deleteSchool.php" method="GET">
+                                <input type="hidden" name="id" value="' . $school['id'] . '">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>';  
