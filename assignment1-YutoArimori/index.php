@@ -29,7 +29,7 @@
        <p>' . $property['address'] . '</p> 
        <p>' . $property['property_type'] . '</p>
       </div>  
-       <form action="" method="GET">
+       <form method="GET">
         <input type="hidden" name="property_id" value="' . $property['property_id']. '">
         <button type="submit" class="btn">Booking</button>
        </form>
